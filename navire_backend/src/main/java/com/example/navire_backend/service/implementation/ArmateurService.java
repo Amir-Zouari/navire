@@ -2,7 +2,6 @@ package com.example.navire_backend.service.implementation;
 
 import com.example.navire_backend.persistence.entities.Armateur;
 import com.example.navire_backend.service.interfaces.IArmateur;
-
 import java.util.List;
 
 public class ArmateurService implements IArmateur {

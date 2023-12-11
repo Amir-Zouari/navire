@@ -1,12 +1,10 @@
 package com.example.navire_backend.persistence.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,5 +21,20 @@ public class Navire {
     private Date dateSortie;
     private String etat;
     private String port;
+
+    @OneToMany(mappedBy = "Navire",fetch = FetchType.LAZY)
+    private List<Receptionneur> listReceptionneur;
+
+    @OneToMany(mappedBy = "Navire",fetch = FetchType.LAZY)
+    private List<DocType> listDocType;
+
+    @OneToMany(mappedBy = "Navire",fetch = FetchType.LAZY)
+    private List<CargaisonNav> listCargaisonNav;
+
+    @ManyToOne
+    private Armateur armateur;
+
+
+
 
 }
