@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Ouvrier {
+public class MenInCharge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

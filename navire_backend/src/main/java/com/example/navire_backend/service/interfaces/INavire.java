@@ -5,19 +5,20 @@ import com.example.navire_backend.persistence.entities.Navire;
 import java.util.List;
 
 public interface INavire {
-    Navire saveNavire(Navire navire);
 
-    Navire updateNavire(Navire navire);
-
-    boolean deleteNavire(Long id);
+    Navire updateNavire(int id,Navire navire);
 
     List<Navire> getListNavire();
 
-    Navire getNavire(Long id);
+    Navire saveNavire(Navire navire);
+
+    void deleteNavire(int id);
+
+    Navire getNavire(int id);
 
     Navire findNavireByName(String name);
 
     int getQuantityOfNavire();
 
-    Navire getNavireByIdNavire(Long id);
+    Navire getNavireByIdNavire(int id);
 }

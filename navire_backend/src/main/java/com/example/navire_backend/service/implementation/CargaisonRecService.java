@@ -2,9 +2,11 @@ package com.example.navire_backend.service.implementation;
 
 import com.example.navire_backend.persistence.entities.CargaisonRec;
 import com.example.navire_backend.service.interfaces.ICargaisonRec;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CargaisonRecService implements ICargaisonRec {
     @Override
     public CargaisonRec saveCargaisonRec(CargaisonRec cargaisonRec) {

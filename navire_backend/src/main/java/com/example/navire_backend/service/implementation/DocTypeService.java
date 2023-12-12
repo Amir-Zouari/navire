@@ -2,9 +2,11 @@ package com.example.navire_backend.service.implementation;
 
 import com.example.navire_backend.persistence.entities.DocType;
 import com.example.navire_backend.service.interfaces.IDocType;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DocTypeService implements IDocType {
     @Override
     public DocType saveDocType(DocType docType) {

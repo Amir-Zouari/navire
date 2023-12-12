@@ -2,9 +2,11 @@ package com.example.navire_backend.service.implementation;
 
 import com.example.navire_backend.persistence.entities.CargaisonNav;
 import com.example.navire_backend.service.interfaces.ICargaisonNav;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CargaisonNavService implements ICargaisonNav {
     @Override
     public CargaisonNav saveCargaisonNav(CargaisonNav cargaisonNav) {

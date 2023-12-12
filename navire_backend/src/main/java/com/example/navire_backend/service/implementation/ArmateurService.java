@@ -2,8 +2,11 @@ package com.example.navire_backend.service.implementation;
 
 import com.example.navire_backend.persistence.entities.Armateur;
 import com.example.navire_backend.service.interfaces.IArmateur;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class ArmateurService implements IArmateur {
     @Override
     public Armateur saveArmateur(Armateur armateur) {

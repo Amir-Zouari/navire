@@ -2,9 +2,11 @@ package com.example.navire_backend.service.implementation;
 
 import com.example.navire_backend.persistence.entities.Receptionneur;
 import com.example.navire_backend.service.interfaces.IReceptionneur;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReceptionneurService implements IReceptionneur {
     @Override
     public Receptionneur saveReceptionneur(Receptionneur receptionneur) {
