@@ -15,7 +15,6 @@ public class NavireController {
 
     @RequestMapping(path = "/add",method = RequestMethod.POST, consumes="application/json", produces = "application/json")
     Navire ajouterNavire(@RequestBody Navire navire) {
-        System.out.println(navire);
         return navireService.saveNavire(navire);
     }
 

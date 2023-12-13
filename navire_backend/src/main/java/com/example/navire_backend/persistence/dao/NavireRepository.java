@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface NavireRepository extends JpaRepository<Navire, Integer> {
 
-    @Query(value = "select * from navire where name= :name",nativeQuery = true)
+    @Query(value = "select * from navire where nom= :name",nativeQuery = true)
     List<Navire> findAllByNom(@Param("name") String name);
 }
