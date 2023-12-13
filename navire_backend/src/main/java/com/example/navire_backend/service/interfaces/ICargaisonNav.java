@@ -9,7 +9,7 @@ public interface ICargaisonNav {
 
     CargaisonNav updateCargaisonNav(CargaisonNav cargaisonNav);
 
-    boolean deleteCargaisonNav(Long id);
+    void deleteCargaisonNav(int id);
 
     List<CargaisonNav> getListCargaisonNav();
 

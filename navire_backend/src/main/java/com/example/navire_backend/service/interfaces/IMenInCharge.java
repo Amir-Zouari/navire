@@ -7,7 +7,7 @@ import java.util.List;
 public interface IMenInCharge {
     MenInCharge saveMenInCharge(MenInCharge menInCharge);
     MenInCharge updateMenInCharge(MenInCharge menInCharge);
-    boolean deleteMenInCharge(Long id);
+    void deleteMenInCharge(int id);
     List<MenInCharge> getListMenInCharge();
     MenInCharge getMenInCharge(Long id);
     MenInCharge findMenInChargeByName(String name);

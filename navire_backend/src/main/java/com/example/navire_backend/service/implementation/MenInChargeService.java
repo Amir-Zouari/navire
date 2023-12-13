@@ -18,8 +18,8 @@ public class MenInChargeService implements IMenInCharge {
     }
 
     @Override
-    public boolean deleteMenInCharge(Long id) {
-        return false;
+    public void deleteMenInCharge(int id) {
+        return ;
     }
 
     @Override

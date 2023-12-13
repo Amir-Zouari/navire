@@ -1,16 +1,21 @@
 package com.example.navire_backend.service.implementation;
 
+import com.example.navire_backend.persistence.dao.CargaisonNavRepository;
 import com.example.navire_backend.persistence.entities.CargaisonNav;
 import com.example.navire_backend.service.interfaces.ICargaisonNav;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CargaisonNavService implements ICargaisonNav {
+    @Autowired
+    CargaisonNavRepository cargaisonNavRepository;
     @Override
     public CargaisonNav saveCargaisonNav(CargaisonNav cargaisonNav) {
-        return null;
+        if (cargaisonNav.getTypeCar()==null) cargaisonNav.setTypeCar("");
+        return cargaisonNavRepository.save(cargaisonNav);
     }
 
     @Override
@@ -19,8 +24,8 @@ public class CargaisonNavService implements ICargaisonNav {
     }
 
     @Override
-    public boolean deleteCargaisonNav(Long id) {
-        return false;
+    public void deleteCargaisonNav(int id) {
+        cargaisonNavRepository.deleteById(id);
     }
 
     @Override

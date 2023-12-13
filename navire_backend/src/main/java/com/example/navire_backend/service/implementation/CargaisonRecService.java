@@ -5,12 +5,14 @@ import com.example.navire_backend.persistence.dao.ReceptionneurRepository;
 import com.example.navire_backend.persistence.entities.CargaisonRec;
 import com.example.navire_backend.persistence.entities.Receptionneur;
 import com.example.navire_backend.service.interfaces.ICargaisonRec;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CargaisonRecService implements ICargaisonRec {
+    @Autowired
     CargaisonRecRepository cargaisonRecRepository;
     @Override
     public CargaisonRec saveCargaisonRec(CargaisonRec cargaisonRec) {

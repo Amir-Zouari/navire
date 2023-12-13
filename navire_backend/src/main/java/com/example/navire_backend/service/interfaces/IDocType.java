@@ -9,7 +9,7 @@ public interface IDocType {
 
     DocType updateDocType(DocType docType);
 
-    boolean deleteDocType(Long id);
+    void deleteDocType(int id);
 
     List<DocType> getListDocType();
 
