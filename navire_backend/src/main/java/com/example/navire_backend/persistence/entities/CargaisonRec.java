@@ -15,7 +15,7 @@ import lombok.*;
 public class CargaisonRec {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCarRec;
+    private int id;
     private String typeCar;
     private double tonnage;
 

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/menInCharge")
+@RequestMapping("/api/menInCharge")
 public class MenInChargeController {
     @Autowired
     private MenInChargeRepository menInChargeRepository;

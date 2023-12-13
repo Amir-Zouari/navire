@@ -15,7 +15,7 @@ import lombok.*;
 public class Armateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idArm;
+    private int id;
     private String nom;
     private String manager;
     private String operationDep;

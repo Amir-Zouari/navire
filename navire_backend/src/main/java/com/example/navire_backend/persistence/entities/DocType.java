@@ -1,9 +1,6 @@
 package com.example.navire_backend.persistence.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -15,7 +12,9 @@ import lombok.*;
 public class DocType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idType;
-    private String typename;
-
+    private int id;
+    private String name;
+    @ManyToOne
+    @JoinColumn(name = "navire_id")
+    private Navire navire;
 }

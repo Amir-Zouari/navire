@@ -19,8 +19,7 @@ public class ReceptionneurService implements IReceptionneur {
     }
 
     @Override
-    public boolean deleteReceptionneur(Long id) {
-        return false;
+    public void deleteReceptionneur(int id) {
     }
 
     @Override

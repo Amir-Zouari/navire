@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cargaisonRec")
+@RequestMapping("/api/cargaisonRec")
 public class CargaisonRecController {
     @Autowired
     private CargaisonRecRepository cargaisonRecRepository;

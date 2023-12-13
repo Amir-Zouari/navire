@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/docType")
+@RequestMapping("/api/docType")
 public class DocTypeController {
     @Autowired
     private DocTypeRepository docTypeRepository;

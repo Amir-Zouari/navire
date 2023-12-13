@@ -1,13 +1,14 @@
 package com.example.navire_backend.service.controllers;
 
-import com.example.navire_backend.persistence.dao.NavireRepository;
 import com.example.navire_backend.persistence.entities.Navire;
 import com.example.navire_backend.service.interfaces.INavire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/navire")
+@RequestMapping("/api/navire")
 public class NavireController {
     @Autowired
     INavire navireService;
@@ -23,6 +24,10 @@ public class NavireController {
         return navireService.getNavire(navId);
     }
 
+    @GetMapping("/all")
+    List<Navire> getAllNavire(){
+        return navireService.getListNavire();
+    }
     @PutMapping("/update/{navId}")
     Navire modifierNavire(@PathVariable int navId,@RequestBody Navire updateRequest){
     return navireService.updateNavire(navId,updateRequest);
@@ -31,6 +36,11 @@ public class NavireController {
     @DeleteMapping("/delete/{navId}")
     void supprimerNavire(@PathVariable int navId){
         navireService.deleteNavire(navId);
+    }
+
+    @GetMapping("/byName/{navName}")
+    List<Navire> getNavireByName(@PathVariable String navName){
+       return navireService.findNavireByname(navName);
     }
 
 

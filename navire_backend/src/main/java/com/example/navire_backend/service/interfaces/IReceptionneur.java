@@ -9,7 +9,7 @@ public interface IReceptionneur {
 
     Receptionneur updateReceptionneur(Receptionneur receptionneur);
 
-    boolean deleteReceptionneur(Long id);
+    void deleteReceptionneur(int id);
 
     List<Receptionneur> getListReceptionneur();
 
@@ -20,4 +20,6 @@ public interface IReceptionneur {
     int getQuantityOfReceptionneur();
 
     Receptionneur getReceptionneurByIdReceptionneur(Long id);
+
+    List<Receptionneur> findReceptionneurByname(String receptionneurName);
 }

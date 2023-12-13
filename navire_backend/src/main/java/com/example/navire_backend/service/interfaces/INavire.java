@@ -16,7 +16,8 @@ public interface INavire {
 
     Navire getNavire(int id);
 
-    Navire findNavireByName(String name);
+
+    List findNavireByname(String name);
 
     int getQuantityOfNavire();
 

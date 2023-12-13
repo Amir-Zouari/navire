@@ -6,6 +6,7 @@ import com.example.navire_backend.service.interfaces.INavire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +16,24 @@ public class NavireService implements INavire {
     NavireRepository navireRepository;
     @Override
     public Navire saveNavire(Navire navire) {
+
+        if (navire.getEtat() == null) navire.setEtat("");
+
+        if (navire.getListReceptionneur() == null) {
+            navire.setListReceptionneur(new ArrayList<>());
+        }
+
+        if (navire.getListDocType() == null) {
+            navire.setListDocType(new ArrayList<>());
+        }
+
+        if (navire.getListCargaisonNav() == null) {
+            navire.setListCargaisonNav(new ArrayList<>());
+        }
+
+        if(navire.getPort()==null) navire.setPort("");
+        if(navire.getName()==null) navire.setName("");
+
         return navireRepository.save(navire);
     }
 
@@ -25,8 +44,8 @@ public class NavireService implements INavire {
         n.setPort(navire.getPort());
         n.setDateSortie(navire.getDateSortie());
         n.setDateEntre(navire.getDateEntre());
-        n.setNavName(navire.getNavName());
-        n.setNEscales(navire.getnEscales());
+        n.setName(navire.getName());
+        n.setNEscales(navire.getNEscales());
         n.setArmateur(navire.getArmateur());
         n.setListCargaisonNav(navire.getListCargaisonNav());
         n.setListDocType(navire.getListDocType());
@@ -52,8 +71,8 @@ public class NavireService implements INavire {
     }
 
     @Override
-    public Navire findNavireByName(String name) {
-            return navireRepository.findByNavName(name);
+    public List<Navire> findNavireByname(String name){
+        return navireRepository.findAllByName(name);
     }
 
     @Override
