@@ -3,6 +3,9 @@ package com.example.navire_backend.persistence.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -19,5 +22,8 @@ public class Receptionneur {
     @ManyToOne
     @JoinColumn(name = "navire_id")
     private Navire navire;
+    @OneToMany(mappedBy = "receptionneur", cascade = CascadeType.ALL)
+    private List<CargaisonRec> cargaisonRec = new ArrayList<>();;
+
 
 }

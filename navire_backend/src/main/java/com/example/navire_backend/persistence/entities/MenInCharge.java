@@ -16,7 +16,6 @@ public class MenInCharge {
     private String prenom;
     private int tel;
 
-
 }
 
 

@@ -1,9 +1,6 @@
 package com.example.navire_backend.persistence.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -18,5 +15,8 @@ public class CargaisonRec {
     private int id;
     private String typeCar;
     private double tonnage;
+    @ManyToOne
+    @JoinColumn(name = "receptionnaire_id")
+    private Receptionneur receptionneur;
 
 }

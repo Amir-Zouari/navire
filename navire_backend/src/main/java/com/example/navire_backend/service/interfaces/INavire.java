@@ -14,12 +14,12 @@ public interface INavire {
 
     void deleteNavire(int id);
 
-    Navire getNavire(int id);
+    Navire getNavireById(int id);
 
 
-    List findNavireByname(String name);
+    List getNavireBynom(String name);
 
     int getQuantityOfNavire();
 
-    Navire getNavireByIdNavire(int id);
+
 }

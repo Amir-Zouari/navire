@@ -9,5 +9,5 @@ import java.util.List;
 public interface NavireRepository extends JpaRepository<Navire, Integer> {
 
     @Query(value = "select * from navire where name= :name",nativeQuery = true)
-    List<Navire> findAllByName(@Param("name") String name);
+    List<Navire> findAllByNom(@Param("name") String name);
 }

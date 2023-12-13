@@ -7,19 +7,21 @@ import java.util.List;
 public interface IReceptionneur {
     Receptionneur saveReceptionneur(Receptionneur receptionneur);
 
-    Receptionneur updateReceptionneur(Receptionneur receptionneur);
+    Receptionneur updateReceptionneur(int id,Receptionneur receptionneur);
 
     void deleteReceptionneur(int id);
 
     List<Receptionneur> getListReceptionneur();
 
-    Receptionneur getReceptionneur(Long id);
+    Receptionneur getReceptionneurById(int id);
 
-    Receptionneur findReceptionneurByName(String name);
+    List<Receptionneur> findReceptionneurByName(String name);
+
+    List<Receptionneur> getReceptionneurByPrenomNom(String prenom, String nom);
 
     int getQuantityOfReceptionneur();
 
-    Receptionneur getReceptionneurByIdReceptionneur(Long id);
 
-    List<Receptionneur> findReceptionneurByname(String receptionneurName);
+
+
 }

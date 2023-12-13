@@ -19,9 +19,9 @@ public class NavireController {
         return navireService.saveNavire(navire);
     }
 
-    @GetMapping("/{navId}")
+    @GetMapping("/byId/{navId}")
     Navire getNavireById(@PathVariable int navId){
-        return navireService.getNavire(navId);
+        return navireService.getNavireById(navId);
     }
 
     @GetMapping("/all")
@@ -38,10 +38,11 @@ public class NavireController {
         navireService.deleteNavire(navId);
     }
 
-    @GetMapping("/byName/{navName}")
-    List<Navire> getNavireByName(@PathVariable String navName){
-       return navireService.findNavireByname(navName);
+    @GetMapping("/byNom/{navNom}")
+    List<Navire> getNavireByNom(@PathVariable String navNom){
+       return navireService.getNavireBynom(navNom);
     }
+
 
 
 

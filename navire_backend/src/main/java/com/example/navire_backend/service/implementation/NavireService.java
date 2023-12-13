@@ -1,11 +1,13 @@
 package com.example.navire_backend.service.implementation;
 
 import com.example.navire_backend.persistence.dao.NavireRepository;
+import com.example.navire_backend.persistence.entities.Armateur;
 import com.example.navire_backend.persistence.entities.Navire;
 import com.example.navire_backend.service.interfaces.INavire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +32,11 @@ public class NavireService implements INavire {
         if (navire.getListCargaisonNav() == null) {
             navire.setListCargaisonNav(new ArrayList<>());
         }
+        if(navire.getArmateur()==null) navire.setArmateur(new Armateur());
+
 
         if(navire.getPort()==null) navire.setPort("");
-        if(navire.getName()==null) navire.setName("");
+        if(navire.getNom()==null) navire.setNom("");
 
         return navireRepository.save(navire);
     }
@@ -44,7 +48,7 @@ public class NavireService implements INavire {
         n.setPort(navire.getPort());
         n.setDateSortie(navire.getDateSortie());
         n.setDateEntre(navire.getDateEntre());
-        n.setName(navire.getName());
+        n.setNom(navire.getNom());
         n.setNEscales(navire.getNEscales());
         n.setArmateur(navire.getArmateur());
         n.setListCargaisonNav(navire.getListCargaisonNav());
@@ -66,13 +70,13 @@ public class NavireService implements INavire {
 
 
     @Override
-    public Navire getNavire(int id) {
+    public Navire getNavireById(int id) {
         return navireRepository.findById(id).get();
     }
 
     @Override
-    public List<Navire> findNavireByname(String name){
-        return navireRepository.findAllByName(name);
+    public List<Navire> getNavireBynom(String name){
+        return navireRepository.findAllByNom(name);
     }
 
     @Override
@@ -80,8 +84,4 @@ public class NavireService implements INavire {
         return 0;
     }
 
-    @Override
-    public Navire getNavireByIdNavire(int id) {
-        return null;
-    }
 }

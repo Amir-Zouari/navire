@@ -7,9 +7,9 @@ import java.util.List;
 public interface ICargaisonRec {
     CargaisonRec saveCargaisonRec(CargaisonRec cargaisonRec);
 
-    CargaisonRec updateCargaisonRec(CargaisonRec cargaisonRec);
+    CargaisonRec updateCargaisonRec(int id,CargaisonRec cargaisonRec);
 
-    boolean deleteCargaisonRec(Long id);
+    void deleteCargaisonRec(int id);
 
     List<CargaisonRec> getListCargaisonRec();
 

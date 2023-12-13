@@ -19,7 +19,7 @@ public class Navire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private String nom;
     private int nEscales;
     private Date dateEntre;
     private Date dateSortie;
