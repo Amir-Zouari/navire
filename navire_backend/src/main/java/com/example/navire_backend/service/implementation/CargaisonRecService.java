@@ -16,8 +16,6 @@ public class CargaisonRecService implements ICargaisonRec {
     public CargaisonRec saveCargaisonRec(CargaisonRec cargaisonRec) {
         if(cargaisonRec.getTypeCar()==null) cargaisonRec.setTypeCar("");
         /*if(cargaisonRec.getTonnage()==null) cargaisonRec.setTonnage(0.0);*/
-        if(cargaisonRec.getReceptionneur()==null) cargaisonRec.setReceptionneur(new Receptionneur());
-
         return cargaisonRecRepository.save(cargaisonRec);
     }
 

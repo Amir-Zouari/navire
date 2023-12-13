@@ -18,7 +18,6 @@ public class ReceptionneurService implements IReceptionneur {
     public Receptionneur saveReceptionneur(Receptionneur receptionneur) {
         if(receptionneur.getNom()==null) receptionneur.setNom("");
         if(receptionneur.getPrenom()==null) receptionneur.setPrenom("");
-        if(receptionneur.getNavire()==null) receptionneur.setNavire(new Navire());
         if(receptionneur.getCargaisonRec()==null) receptionneur.setCargaisonRec(new ArrayList<>());
         return receptionneurRepository.save(receptionneur);
     }

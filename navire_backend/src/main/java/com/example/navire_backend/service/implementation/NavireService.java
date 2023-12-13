@@ -32,7 +32,6 @@ public class NavireService implements INavire {
         if (navire.getListCargaisonNav() == null) {
             navire.setListCargaisonNav(new ArrayList<>());
         }
-        if(navire.getArmateur()==null) navire.setArmateur(new Armateur());
 
 
         if(navire.getPort()==null) navire.setPort("");
