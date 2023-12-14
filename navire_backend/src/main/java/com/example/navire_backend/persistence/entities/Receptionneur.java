@@ -1,5 +1,8 @@
 package com.example.navire_backend.persistence.entities;
 
+import com.example.navire_backend.persistence.DTO.DocumentDTO;
+import com.example.navire_backend.persistence.DTO.ReceptionneurDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,9 +24,15 @@ public class Receptionneur {
     private int tel;
     @ManyToOne
     @JoinColumn(name = "navire_id")
+    @JsonBackReference
     private Navire navire;
     @OneToMany(mappedBy = "receptionneur", cascade = CascadeType.ALL)
-    private List<CargaisonRec> cargaisonRec = new ArrayList<>();;
+    private List<CargaisonRec> listCargaisonRec = new ArrayList<>();
+
+    public ReceptionneurDTO toDTO() {
+        boolean boolNavire= navire!=null;
+        return new ReceptionneurDTO(id, nom, prenom, tel, boolNavire ? navire.getId() : null,boolNavire?navire.getNom():"",listCargaisonRec);
+    }
 
 
 }

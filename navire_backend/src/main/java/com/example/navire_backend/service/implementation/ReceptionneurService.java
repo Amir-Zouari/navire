@@ -1,7 +1,7 @@
 package com.example.navire_backend.service.implementation;
 
+import com.example.navire_backend.persistence.DTO.ReceptionneurDTO;
 import com.example.navire_backend.persistence.dao.ReceptionneurRepository;
-import com.example.navire_backend.persistence.entities.Navire;
 import com.example.navire_backend.persistence.entities.Receptionneur;
 import com.example.navire_backend.service.interfaces.IReceptionneur;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +16,6 @@ public class ReceptionneurService implements IReceptionneur {
     ReceptionneurRepository receptionneurRepository;
     @Override
     public Receptionneur saveReceptionneur(Receptionneur receptionneur) {
-        if(receptionneur.getNom()==null) receptionneur.setNom("");
-        if(receptionneur.getPrenom()==null) receptionneur.setPrenom("");
-        if(receptionneur.getCargaisonRec()==null) receptionneur.setCargaisonRec(new ArrayList<>());
         return receptionneurRepository.save(receptionneur);
     }
 
@@ -29,7 +26,7 @@ public class ReceptionneurService implements IReceptionneur {
         r.setPrenom(receptionneur.getPrenom());
         r.setTel(receptionneur.getTel());
         r.setNavire(receptionneur.getNavire());
-        r.setCargaisonRec(receptionneur.getCargaisonRec());
+        r.setListCargaisonRec(receptionneur.getListCargaisonRec());
         return receptionneurRepository.save(r);
     }
 
@@ -50,8 +47,9 @@ public class ReceptionneurService implements IReceptionneur {
     }
 
     @Override
-    public Receptionneur getReceptionneurById(int id) {
-        return receptionneurRepository.findById(id).get();
+    public ReceptionneurDTO getReceptionneurById(int id) {
+        Receptionneur receptionneur = receptionneurRepository.findById(id).get();
+        return receptionneur.toDTO();
     }
 
     @Override

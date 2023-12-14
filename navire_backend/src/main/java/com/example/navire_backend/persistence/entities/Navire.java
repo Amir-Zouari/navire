@@ -1,6 +1,6 @@
 package com.example.navire_backend.persistence.entities;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,7 +31,7 @@ public class Navire {
     private List<Receptionneur> listReceptionneur = new ArrayList<>();
 
     @OneToMany(mappedBy = "navire", cascade = CascadeType.ALL)
-    private List<DocType> listDocType = new ArrayList<>();
+    private List<Document> listDocument = new ArrayList<>();
 
     @OneToMany(mappedBy = "navire", cascade = CascadeType.ALL)
     private List<CargaisonNav> listCargaisonNav = new ArrayList<>();

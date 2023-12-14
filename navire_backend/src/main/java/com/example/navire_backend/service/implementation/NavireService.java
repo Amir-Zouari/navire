@@ -1,13 +1,15 @@
 package com.example.navire_backend.service.implementation;
 
+import com.example.navire_backend.persistence.dao.DocumentRepository;
 import com.example.navire_backend.persistence.dao.NavireRepository;
-import com.example.navire_backend.persistence.entities.Armateur;
+import com.example.navire_backend.persistence.dao.ReceptionneurRepository;
+import com.example.navire_backend.persistence.entities.Document;
 import com.example.navire_backend.persistence.entities.Navire;
+import com.example.navire_backend.persistence.entities.Receptionneur;
 import com.example.navire_backend.service.interfaces.INavire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,33 +18,36 @@ public class NavireService implements INavire {
 
     @Autowired
     NavireRepository navireRepository;
+    @Autowired
+    DocumentRepository documentRepository;
+    @Autowired
+    ReceptionneurRepository receptionneurRepository;
     @Override
     public Navire saveNavire(Navire navire) {
+        List<Document> foundDocList = navire.getListDocument();
+        for (Document document : foundDocList) {
+            document.setNavire(navire);
 
-        if (navire.getEtat() == null) navire.setEtat("");
-
-        if (navire.getListReceptionneur() == null) {
-            navire.setListReceptionneur(new ArrayList<>());
         }
+        navire.setListDocument(new ArrayList<>());
 
-        if (navire.getListDocType() == null) {
-            navire.setListDocType(new ArrayList<>());
+        List<Receptionneur> foundRecList = navire.getListReceptionneur();
+        for (Receptionneur receptionneur : foundRecList) {
+            receptionneur.setNavire(navire);
+
         }
-
-        if (navire.getListCargaisonNav() == null) {
-            navire.setListCargaisonNav(new ArrayList<>());
-        }
-
-
-        if(navire.getPort()==null) navire.setPort("");
-        if(navire.getNom()==null) navire.setNom("");
-
-        return navireRepository.save(navire);
+        navire.setListReceptionneur(new ArrayList<>());
+        navire.setListDocument(new ArrayList<>());
+        navireRepository.saveAndFlush(navire);
+        documentRepository.saveAllAndFlush(foundDocList);
+        receptionneurRepository.saveAllAndFlush(foundRecList);
+        return navireRepository.findById(navire.getId()).get();
     }
 
     @Override
-    public Navire updateNavire(int id,Navire navire) {
-        Navire n = navireRepository.findById(id).get();
+    public Navire updateNavire(int id,Navire updatedNavire) {
+        /*Navire n = navireRepository.findById(id).get();
+
         n.setEtat(navire.getEtat());
         n.setPort(navire.getPort());
         n.setDateSortie(navire.getDateSortie());
@@ -51,10 +56,48 @@ public class NavireService implements INavire {
         n.setNEscales(navire.getNEscales());
         n.setArmateur(navire.getArmateur());
         n.setListCargaisonNav(navire.getListCargaisonNav());
-        n.setListDocType(navire.getListDocType());
+        n.setListDocument(navire.getListDocument());
         n.setListReceptionneur(navire.getListReceptionneur());
         navireRepository.save(n);
-        return navireRepository.findById(id).get();
+        return navireRepository.findById(id).get();*/
+        Navire existingNavire = navireRepository.findById(id).orElse(null);
+
+        if (existingNavire != null) {
+            existingNavire.setEtat(updatedNavire.getEtat());
+            existingNavire.setPort(updatedNavire.getPort());
+            existingNavire.setDateSortie(updatedNavire.getDateSortie());
+            existingNavire.setDateEntre(updatedNavire.getDateEntre());
+            existingNavire.setNom(updatedNavire.getNom());
+            existingNavire.setNEscales(updatedNavire.getNEscales());
+            existingNavire.setArmateur(updatedNavire.getArmateur());
+
+            // Update the associated collections
+            List<Document> updatedDocuments = updatedNavire.getListDocument();
+            existingNavire.getListDocument().clear();
+            if (updatedDocuments != null) {
+                for (Document updatedDocument : updatedDocuments) {
+                    updatedDocument.setNavire(existingNavire);
+                    existingNavire.getListDocument().add(updatedDocument);
+                }
+            }
+
+            List<Receptionneur> updatedReceptionneurs = updatedNavire.getListReceptionneur();
+            existingNavire.getListReceptionneur().clear();
+            if (updatedReceptionneurs != null) {
+                for (Receptionneur updatedReceptionneur : updatedReceptionneurs) {
+                    updatedReceptionneur.setNavire(existingNavire);
+                    existingNavire.getListReceptionneur().add(updatedReceptionneur);
+                }
+            }
+
+            navireRepository.save(existingNavire);
+
+            return existingNavire;
+        }
+        else {
+            return null;
+        }
+
     }
 
     @Override

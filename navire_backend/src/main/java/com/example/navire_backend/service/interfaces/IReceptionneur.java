@@ -1,5 +1,6 @@
 package com.example.navire_backend.service.interfaces;
 
+import com.example.navire_backend.persistence.DTO.ReceptionneurDTO;
 import com.example.navire_backend.persistence.entities.Receptionneur;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface IReceptionneur {
 
     List<Receptionneur> getListReceptionneur();
 
-    Receptionneur getReceptionneurById(int id);
+    ReceptionneurDTO getReceptionneurById(int id);
 
     List<Receptionneur> findReceptionneurByName(String name);
 

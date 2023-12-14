@@ -1,5 +1,6 @@
 package com.example.navire_backend.service.controllers;
 
+import com.example.navire_backend.persistence.DTO.ReceptionneurDTO;
 import com.example.navire_backend.persistence.dao.ReceptionneurRepository;
 import com.example.navire_backend.persistence.entities.Receptionneur;
 import com.example.navire_backend.service.interfaces.IReceptionneur;
@@ -21,7 +22,7 @@ public class ReceptionneurController {
     }
 
     @GetMapping("/byId/{receptionneurId}")
-    Receptionneur getReceptionneurById(@PathVariable int receptionneurId) {
+    ReceptionneurDTO getReceptionneurById(@PathVariable int receptionneurId) {
         return receptionneurService.getReceptionneurById(receptionneurId);
     }
 
