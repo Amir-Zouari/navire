@@ -54,8 +54,8 @@ public class CargaisonNavService implements ICargaisonNav {
 
     @Override
     public List<CargaisonNavDTO> getListCargaisonNav() {
-        List<CargaisonNav> CargaisonNavList = cargaisonNavRepository.findAll();
-        return CargaisonNavList.stream()
+        List<CargaisonNav> cargaisonNavList = cargaisonNavRepository.findAll();
+        return cargaisonNavList.stream()
                 .map(CargaisonNav::toDTO)
                 .collect(Collectors.toList());
     }
