@@ -8,11 +8,11 @@ import java.util.List;
 public interface IDocument {
     Document saveDocument(Document document);
 
-    Document updateDocType(Document document);
+    Document updateDocument(int id,Document document);
 
     void deleteDocument(int id);
 
-    List<Document> getListDocType();
+    List<DocumentDTO> getListDocument();
 
     DocumentDTO getDocumentById(int id);
 

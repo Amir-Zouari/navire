@@ -27,12 +27,12 @@ public class ReceptionneurController {
     }
 
     @GetMapping("/all")
-    List<Receptionneur> getAllReceptionneurs() {
+    List<ReceptionneurDTO> getAllReceptionneurs() {
         return receptionneurService.getListReceptionneur();
     }
 
     @GetMapping("/byNom/{receptionneurName}")
-    List<Receptionneur> getReceptionneurByName(@PathVariable String receptionneurName) {
+    List<ReceptionneurDTO> getReceptionneurByName(@PathVariable String receptionneurName) {
         return receptionneurService.findReceptionneurByName(receptionneurName);
     }
 
@@ -45,8 +45,8 @@ public class ReceptionneurController {
     void supprimerReceptionneur(@PathVariable int receptionneurId) {
         receptionneurService.deleteReceptionneur(receptionneurId);
     }
-    @GetMapping("/byNomPrenom")
-    public List<Receptionneur> getRecepetionneurByPrenomNom(
+    @GetMapping("/byPrenomNom")
+    public List<ReceptionneurDTO> getRecepetionneurByPrenomNom(
             @RequestParam(name = "prenom") String prenom,
             @RequestParam(name = "nom") String nom) {
 

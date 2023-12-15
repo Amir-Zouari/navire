@@ -31,7 +31,7 @@ public class Receptionneur {
 
     public ReceptionneurDTO toDTO() {
         boolean boolNavire= navire!=null;
-        return new ReceptionneurDTO(id, nom, prenom, tel, boolNavire ? navire.getId() : null,boolNavire?navire.getNom():"",listCargaisonRec);
+        return new ReceptionneurDTO(id, nom, prenom, tel, boolNavire ? navire.getId() : 0,boolNavire?navire.getNom():"",listCargaisonRec);
     }
 
 

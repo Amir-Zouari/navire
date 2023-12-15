@@ -1,5 +1,6 @@
 package com.example.navire_backend.service.interfaces;
 
+import com.example.navire_backend.persistence.DTO.CargaisonRecDTO;
 import com.example.navire_backend.persistence.entities.CargaisonRec;
 
 import java.util.List;
@@ -11,9 +12,9 @@ public interface ICargaisonRec {
 
     void deleteCargaisonRec(int id);
 
-    List<CargaisonRec> getListCargaisonRec();
+    List<CargaisonRecDTO> getListCargaisonRec();
 
-    CargaisonRec getCargaisonRec(Long id);
+    CargaisonRecDTO getCargaisonRecById(int id);
 
     CargaisonRec findCargaisonRecByName(String name);
 

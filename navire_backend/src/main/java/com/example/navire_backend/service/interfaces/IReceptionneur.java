@@ -12,13 +12,13 @@ public interface IReceptionneur {
 
     void deleteReceptionneur(int id);
 
-    List<Receptionneur> getListReceptionneur();
+    List<ReceptionneurDTO> getListReceptionneur();
 
     ReceptionneurDTO getReceptionneurById(int id);
 
-    List<Receptionneur> findReceptionneurByName(String name);
+    List<ReceptionneurDTO> findReceptionneurByName(String name);
 
-    List<Receptionneur> getReceptionneurByPrenomNom(String prenom, String nom);
+    List<ReceptionneurDTO> getReceptionneurByPrenomNom(String prenom, String nom);
 
     int getQuantityOfReceptionneur();
 

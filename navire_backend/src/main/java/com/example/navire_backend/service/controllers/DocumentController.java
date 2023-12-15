@@ -6,6 +6,8 @@ import com.example.navire_backend.service.interfaces.IDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/document")
 public class DocumentController {
@@ -22,6 +24,15 @@ public class DocumentController {
     @GetMapping("/{docId}")
     DocumentDTO rechercherDocument(@PathVariable int docId){
         return documentService.getDocumentById(docId);
+    }
+
+    @PutMapping("/update/{docId}")
+    Document modifierDocument(@PathVariable int docId,@RequestBody Document document){
+        return documentService.updateDocument(docId,document);
+    }
+    @GetMapping("/all")
+    List<DocumentDTO> getAllDocuments(){
+        return documentService.getListDocument();
     }
 
 

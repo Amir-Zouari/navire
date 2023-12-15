@@ -1,17 +1,14 @@
 package com.example.navire_backend.service.implementation;
 
-import com.example.navire_backend.persistence.dao.DocumentRepository;
-import com.example.navire_backend.persistence.dao.NavireRepository;
-import com.example.navire_backend.persistence.dao.ReceptionneurRepository;
-import com.example.navire_backend.persistence.entities.Document;
-import com.example.navire_backend.persistence.entities.Navire;
-import com.example.navire_backend.persistence.entities.Receptionneur;
+import com.example.navire_backend.persistence.dao.*;
+import com.example.navire_backend.persistence.entities.*;
 import com.example.navire_backend.service.interfaces.INavire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NavireService implements INavire {
@@ -22,60 +19,91 @@ public class NavireService implements INavire {
     DocumentRepository documentRepository;
     @Autowired
     ReceptionneurRepository receptionneurRepository;
+    @Autowired
+    CargaisonNavRepository cargaisonNavRepository;
+    @Autowired
+    CargaisonRecRepository cargaisonRecRepository;
     @Override
     public Navire saveNavire(Navire navire) {
         List<Document> foundDocList = navire.getListDocument();
-        for (Document document : foundDocList) {
-            document.setNavire(navire);
+        if (foundDocList != null){
+            for (Document document : foundDocList) {
+                Optional <Document> existingDocument = documentRepository.findById(document.getId());
+                if (existingDocument.isPresent()) document = existingDocument.get();
+                document.setNavire(navire);
 
+            }
         }
+        List<CargaisonNav> foundCargNavList = navire.getListCargaisonNav();
+        if (foundCargNavList != null){
+            for (CargaisonNav cargaisonNav : foundCargNavList) {
+                Optional<CargaisonNav> existingCargNav = cargaisonNavRepository.findById(cargaisonNav.getId());
+                if (existingCargNav.isPresent()) cargaisonNav = existingCargNav.get();
+                cargaisonNav.setNavire(navire);
+
+            }
+        }
+
+        List<Receptionneur> foundReceptionneurs = navire.getListReceptionneur();
+        if (foundReceptionneurs != null) {
+            for (Receptionneur receptionneur : foundReceptionneurs) {
+                /*Optional<Receptionneur> existingReceptionneur = receptionneurRepository.findById(receptionneur.getId());
+                if (existingReceptionneur.isPresent()) receptionneur = existingReceptionneur.get();*/
+                receptionneur.getListCargaisonRec().clear();
+
+                List<CargaisonRec> foundCargaisonRecs = receptionneur.getListCargaisonRec();
+                if (foundCargaisonRecs != null) {
+                    for (CargaisonRec cargaisonRec : foundCargaisonRecs) {
+                        cargaisonRec.setReceptionneur(receptionneur);
+                        receptionneur.getListCargaisonRec().add(cargaisonRec);
+                    }
+                }
+                receptionneur.setNavire(navire);
+
+            }
+        }
+
         navire.setListDocument(new ArrayList<>());
-
         List<Receptionneur> foundRecList = navire.getListReceptionneur();
-        for (Receptionneur receptionneur : foundRecList) {
-            receptionneur.setNavire(navire);
+        if(foundRecList != null){
+            for (Receptionneur receptionneur : foundRecList) {
+                Optional<Receptionneur> existingReceptionneur = receptionneurRepository.findById(receptionneur.getId());
+                if (existingReceptionneur.isPresent()) receptionneur = existingReceptionneur.get();
+                receptionneur.setNavire(navire);
 
+            }
         }
         navire.setListReceptionneur(new ArrayList<>());
         navire.setListDocument(new ArrayList<>());
         navireRepository.saveAndFlush(navire);
-        documentRepository.saveAllAndFlush(foundDocList);
+        cargaisonNavRepository.saveAllAndFlush(foundCargNavList);
         receptionneurRepository.saveAllAndFlush(foundRecList);
+        documentRepository.saveAllAndFlush(foundDocList);
         return navireRepository.findById(navire.getId()).get();
     }
 
     @Override
     public Navire updateNavire(int id,Navire updatedNavire) {
-        /*Navire n = navireRepository.findById(id).get();
 
-        n.setEtat(navire.getEtat());
-        n.setPort(navire.getPort());
-        n.setDateSortie(navire.getDateSortie());
-        n.setDateEntre(navire.getDateEntre());
-        n.setNom(navire.getNom());
-        n.setNEscales(navire.getNEscales());
-        n.setArmateur(navire.getArmateur());
-        n.setListCargaisonNav(navire.getListCargaisonNav());
-        n.setListDocument(navire.getListDocument());
-        n.setListReceptionneur(navire.getListReceptionneur());
-        navireRepository.save(n);
-        return navireRepository.findById(id).get();*/
         Navire existingNavire = navireRepository.findById(id).orElse(null);
 
         if (existingNavire != null) {
-            existingNavire.setEtat(updatedNavire.getEtat());
-            existingNavire.setPort(updatedNavire.getPort());
-            existingNavire.setDateSortie(updatedNavire.getDateSortie());
-            existingNavire.setDateEntre(updatedNavire.getDateEntre());
-            existingNavire.setNom(updatedNavire.getNom());
-            existingNavire.setNEscales(updatedNavire.getNEscales());
-            existingNavire.setArmateur(updatedNavire.getArmateur());
+            if (updatedNavire.getEtat() != null) existingNavire.setEtat(updatedNavire.getEtat());
+            if (updatedNavire.getPort() != null)existingNavire.setPort(updatedNavire.getPort());
+            if (updatedNavire.getDateSortie() != null)existingNavire.setDateSortie(updatedNavire.getDateSortie());
+            if (updatedNavire.getDateEntre() != null)existingNavire.setDateEntre(updatedNavire.getDateEntre());
+            if (updatedNavire.getNom() != null)existingNavire.setNom(updatedNavire.getNom());
+            if (updatedNavire.getNEscales() != 0)existingNavire.setNEscales(updatedNavire.getNEscales());
+            if (updatedNavire.getArmateur() != null)existingNavire.setArmateur(updatedNavire.getArmateur());
 
-            // Update the associated collections
+
             List<Document> updatedDocuments = updatedNavire.getListDocument();
+
             existingNavire.getListDocument().clear();
             if (updatedDocuments != null) {
                 for (Document updatedDocument : updatedDocuments) {
+                    Optional <Document> existingDocument = documentRepository.findById(updatedDocument.getId());
+                    if (existingDocument.isPresent()) updatedDocument = existingDocument.get();
                     updatedDocument.setNavire(existingNavire);
                     existingNavire.getListDocument().add(updatedDocument);
                 }
@@ -85,13 +113,47 @@ public class NavireService implements INavire {
             existingNavire.getListReceptionneur().clear();
             if (updatedReceptionneurs != null) {
                 for (Receptionneur updatedReceptionneur : updatedReceptionneurs) {
+                    List<CargaisonRec> updatedCargaisonRecList = updatedReceptionneur.getListCargaisonRec();
+                    /*Optional<Receptionneur> existingReceptionneur = receptionneurRepository.findById(updatedReceptionneur.getId());
+                    if (existingReceptionneur.isPresent()) updatedReceptionneur = existingReceptionneur.get();*/
+                    updatedReceptionneur.getListCargaisonRec().clear();
+
+                    if (updatedCargaisonRecList != null) {
+                        for (CargaisonRec updatedCargaisonRec : updatedCargaisonRecList) {
+                            Optional<CargaisonRec> existingCargRec = cargaisonRecRepository.findById(updatedCargaisonRec.getId());
+                            if (existingCargRec.isPresent()) {
+                                // If the CargaisonRec exists, use the existing one
+                                updatedCargaisonRec = existingCargRec.get();
+                            } else {
+                                // If it doesn't exist, set the reference to the existing Receptionneur
+                                updatedCargaisonRec.setReceptionneur(updatedReceptionneur);
+                            }
+
+                            // Set the reference to the existing Receptionneur
+                            updatedCargaisonRec.setReceptionneur(updatedReceptionneur);
+                            updatedReceptionneur.getListCargaisonRec().add(updatedCargaisonRec);
+                        }
+                    }
                     updatedReceptionneur.setNavire(existingNavire);
                     existingNavire.getListReceptionneur().add(updatedReceptionneur);
                 }
             }
 
-            navireRepository.save(existingNavire);
+            List<CargaisonNav> updatedCargaisonNavs = updatedNavire.getListCargaisonNav();
+            existingNavire.getListCargaisonNav().clear();
+            if (updatedCargaisonNavs != null) {
+                for (CargaisonNav updatedCargaisonNav : updatedCargaisonNavs) {
+                    Optional<CargaisonNav> existingCargNav = cargaisonNavRepository.findById(updatedCargaisonNav.getId());
+                    if (existingCargNav.isPresent()) updatedCargaisonNav = existingCargNav.get();
+                    updatedCargaisonNav.setNavire(existingNavire);
+                    existingNavire.getListCargaisonNav().add(updatedCargaisonNav);
+                }
+            }
 
+            navireRepository.saveAndFlush(existingNavire);
+            cargaisonNavRepository.saveAllAndFlush(existingNavire.getListCargaisonNav());
+            documentRepository.saveAllAndFlush(existingNavire.getListDocument());
+            receptionneurRepository.saveAllAndFlush(existingNavire.getListReceptionneur());
             return existingNavire;
         }
         else {
